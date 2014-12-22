@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+    grid.html - Demonstrates rendering and animation of simple cube objects
+
+    GOAL Display a randomized height map in a regular XZ grid. The vertices
+        should be specified just once, and an array of indices used along
+        with drawElements in order to render the grid via triangle strips.
+
+    TODO There are various smaller todo items throughout the three source
+        files for this assignment. In addition, as described above, you must
+        decide how to manage the start and stop of each animation sequence.
+        Depending on your approach, this will likely require one or more
+        new functions rather than simply modifying existing functions.
+-->
+<html xmlns="http://www.w3.org/1999/hmtl" lang="en">
+<head>
+  <title>WebGL Cube using OOP</title>
+  <meta charset="UTF-8"/>
+  <style type="text/css">
+    canvas { background: #000; }
+  </style>
+
+  <script id="vertex-shader" type="x-shader/x-vertex">
+// TODO #1a add a vertex attribute to hold per-vertex position data
+attribute vec4 vPosition;
+// TODO #2a a vertex attribute to hold per-vertex color data
+attribute vec4 vColor;
+
+varying vec4 color; // sent down to later stages of the pipeline
+
+// TODO #1b add a uniform variable for the projection matrix
+uniform mat4 projection;
+// TODO #1c add a uniform variable for the model transform matrix
+uniform mat4 modelMatrix;
+
+void main() 
+{
+    // TODO #2b assign the per-vertex color to the varying color variable
+	color = vColor;
+	color.rgb = vec3(vPosition.y, vPosition.y, vPosition.y);
+
+    // some per-object matrix ops done at app level
+    // but final matrix chain is processed here
+    gl_Position = projection * modelMatrix * vPosition;
+}
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+#ifdef GL_ES
+precision highp float;
+#endif
+
+varying vec4 color;
+
+void
+main()
+{
+    gl_FragColor = color;
+}
+  </script>
+  
+  
+  
+  <input type="file" id="files" name="file" />
+  <button id="button">Read Bytes</button>
+  <script type="text/javascript" src="dem.js"></script>
+
+  <script type="text/javascript" src="webgl-utils.js"></script>
+  <script type="text/javascript" src="initShaders.js"></script>
+  <script type="text/javascript" src="MV.js"></script>
+  <script type="text/javascript" src="InitGL.js"></script>
+  <script type="text/javascript" src="Grid.js"></script>
+</head>
+<body style="background-color:black;text-align:center;">
+    <canvas id="gl-canvas" width="1280" height="720">Oops ...
+        your browser doesn't support the HTML5 canvas element</canvas>
+    <div>
+        <button id = "Btn_TL">Rotate Left </button>
+        <button id = "Btn_TR">Rotate Right</button>
+    </div>
+    	
+</body>
+</html>
