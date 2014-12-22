@@ -36,11 +36,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     	} else if(second) {
     		console.log("************INSIDE************");
 
-			
-
-    		
-			
-			
 			/*
 			for(i = 0; i < recordData2.length; i++) {
 				
@@ -52,8 +47,10 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 		
 			
 			var combinedArray = new Array();
-			//for(i = 0; i < recordData1.length; i++) {
-			for(i = 0; i < 5; i++) {
+
+			var elevationProfileNum = 1;			
+			for(i = 0; i < recordData1.length; i++) {
+
 
 				var tempArray = new Array();
 				//var string = recordData1[i].toString().trim();
@@ -63,7 +60,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 				
     			tempArray = string.split('  ');
 				combinedArray = combinedArray.concat(tempArray);
-				//combinedArray = tempArray;
 				/*
 				var div = document.createElement('div');
 				document.body.appendChild(div);
@@ -72,12 +68,12 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 				/*if(i == numElevationProfs - 1) {
 				
 				}*/
-				if(i == 4) { 
-					// Make grids
-					var w = 10;
-					var h = Math.floor(combinedArray.length/10);
 
-					//var h = Math.floor(combinedArray.length/3); 
+				if(combinedArray.length/elevationProfileNum > 62000) {
+					// Make grids
+					var w = recordData1.length;
+					var h = Math.floor(combinedArray.length/recordData1.length);
+
 					var g, shaders;
 
     				initGL(); // basic WebGL setup for the scene 
@@ -85,7 +81,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     				shaders = initShaders( gl, "vertex-shader", "fragment-shader" );
 
     				// create a grid
-    				g = new Grid(5, Math.floor(combinedArray.length/5), shaders, combinedArray);
+    				g = new Grid(w, h, shaders, combinedArray);
     				// center it at the origin
     				g.move((1-w)/2, X_AXIS);
     				g.move((1-h)/2, Z_AXIS);
@@ -93,15 +89,12 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     				drawables.push(g); // add the grid to our list of drawables
 
     				renderScene();
+    				elevationProfileNum++;
     			}
     	
 			}
 		}
 		//	console.log("whole length: " + combinedArray.length);
-			
-			
-		
-    	
     };
     
     var blob = file.slice(start, stop + 1);
@@ -200,8 +193,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   function callBack2(recordA, recordB, numElevationProfs) {
 		var increment = 1024;
 
-  		//for(i = 0; i < numElevationProfs; i++) {
-  		for(i = 0; i < 5; i++) {
+  		for(i = 0; i < numElevationProfs; i++) {
 	  		if(i === 0) {
 				readBlob(increment + 144, increment + 876, recordB, recordA, false, numElevationProfs, true);
 				console.log("inside loop1");

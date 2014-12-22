@@ -117,7 +117,7 @@ Grid.prototype.mkgrid = function(nx, nz, verticesArray)
         	this.points.push(vec4(x, verticesArray[x*nz+z]/2000, z, 1));
             //this.points.push(vec4(x, Math.pow(Math.random(), 2), z, 1));
             //console.log("Pushing points " + verticesArray[v]);
-            if(verticesArray[x*nz+z]/1200 < 0.25) {
+            /*if(verticesArray[x*nz+z]/1200 < 0.25) {
                 this.colors.push(0.0, 0.0, 1.0, 1.0);
             } else if (verticesArray[x*nz+z]/1200 < 0.5) { 
             	this.colors.push(vec4(0.0, 1.0, 0.0, 1.0));
@@ -125,8 +125,8 @@ Grid.prototype.mkgrid = function(nx, nz, verticesArray)
             	this.colors.push(vec4(1.0, 1.0, 0.0, 1.0));
             } else {
             	this.colors.push(1.0, 1.0, 0.0, 1.0);
-            }
-           //this.colors.push(vec4(1, x % 2, z % 2, 1.0));
+            }*/
+           this.colors.push(vec4(1, x % 2, z % 2, 1.0));
         }
     }
     // diagnostic output to verify that our points look correct
