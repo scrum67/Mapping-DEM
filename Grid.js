@@ -114,8 +114,8 @@ Grid.prototype.mkgrid = function(nx, nz, verticesArray)
     // generate a regular, rectangular grid of points with random heights
     for (x = 0; x < nx; x++) {
         for (z = 0; z < nz; z++) {
-        	this.points.push(vec4(x, verticesArray[x*nz+z]/2000, z, 1));
-            //this.points.push(vec4(x, Math.pow(Math.random(), 2), z, 1));
+        	// I know this should be /100 not /2000, but it doesn't render properly if not between 0 and 1
+        	this.points.push(vec4(x, verticesArray[x*nz+z]/100, z, 1));
             //console.log("Pushing points " + verticesArray[v]);
             /*if(verticesArray[x*nz+z]/1200 < 0.25) {
                 this.colors.push(0.0, 0.0, 1.0, 1.0);

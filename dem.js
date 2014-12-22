@@ -89,6 +89,10 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     				drawables.push(g); // add the grid to our list of drawables
 
     				renderScene();
+    				if(elevationProfileNum > 1) {
+    					g.move((1-(w*elevationProfileNum))/2, X_AXIS);
+    					g.move((1-h)/2, X_AXIS);
+    				}
     				elevationProfileNum++;
     			}
     	
@@ -129,10 +133,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     var blob = file.slice(start, stop + 1);
     reader.readAsBinaryString(blob);
   }
-  
-  
-  
-  
 
   document.querySelector('#button').addEventListener('click', function(evt) {
   	var recordAData = new Array();
@@ -147,8 +147,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     	readBlob(739, 786, recordA, recordB, true, -1, false);
     	readBlob(853, 864, recordA, recordB, true, -1, false);
   	}
-    
-    
     
     getData(recordAData, recordBData);
 
